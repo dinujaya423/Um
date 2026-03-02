@@ -1,1 +1,2 @@
-# Um
+# SENU-V2
+SENU-MINI-BOT

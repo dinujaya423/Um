@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DINU X LITE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(180deg,#010b16 0%,#031c2f 100%);
+      color:#e7faff;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      overflow:hidden;
+    }
+
+    /* bubbles */
+    .neon-bubbles{position:fixed;inset:0;z-index:0;pointer-events:none}
+    .neon-bubbles span{
+      position:absolute;display:block;width:14px;height:14px;border-radius:50%;
+      background:radial-gradient(circle,#00e1ff,#0a1a24);
+      filter:drop-shadow(0 0 10px #00bfff);
+      opacity:0.8;
+      animation:rise 8s linear infinite, drift 4s ease-in-out infinite;
+    }
+    @keyframes rise{0%{transform:translateY(110vh) scale(.6);opacity:0}30%{opacity:1}100%{transform:translateY(-15vh) scale(1.15);opacity:0}}
+    @keyframes drift{0%{transform:translateX(0)}50%{transform:translateX(18px)}100%{transform:translateX(0)}}
+
+    /* card */
+    .wrap{position:relative;z-index:2;width:380px;max-width:95%}
+    .box{
+      position:relative;
+      background:linear-gradient(180deg,rgba(0,50,90,0.5),rgba(0,180,255,0.25));
+      border-radius:20px;
+      padding:90px 22px 40px;
+      box-shadow:0 10px 40px rgba(0,200,255,0.15);
+      border:1px solid rgba(0,240,255,0.12);
+      text-align:center;
+      transition:transform .5s ease,opacity .45s ease;
+    }
+
+    .avatar{
+      position:absolute;
+      top:-60px;
+      left:50%;
+      transform:translateX(-50%);
+      width:120px;
+      height:120px;
+      border-radius:50%;
+      overflow:hidden;
+      border:6px solid rgba(0,200,255,0.4);
+      box-shadow:0 8px 30px rgba(0,220,255,0.3);
+      background:linear-gradient(135deg,#01253b,#0fd1ff);
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+
+    h3{color:#6ae2ff;margin-top:6px;text-shadow:0 0 14px rgba(0,200,255,0.45)}
+    h6{color:#9beaff;font-weight:500;margin:6px 0}
+
+    .input-container{margin-top:16px;text-align:left}
+    .input-container input{
+      width:100%;
+      padding:12px 14px;
+      border-radius:10px;
+      border:none;outline:none;
+      background:#041622;
+      color:#e8fcff;
+      font-size:15px;
+      border:1px solid rgba(0,255,255,0.08);
+      transition:box-shadow .25s,border-color .25s;
+    }
+    .input-container input:focus{
+      box-shadow:0 0 18px rgba(0,255,255,0.25);
+      border-color:#7df2ff;
+    }
+
+    .submit-btn{
+      margin-top:14px;
+      width:100%;
+      padding:12px 0;
+      background:#00c1ff;
+      color:#00111a;
+      border:none;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      transition:all .2s ease;
+    }
+    .submit-btn:hover{
+      box-shadow:0 0 20px rgba(0,255,255,0.35);
+      transform:scale(1.03);
+    }
+
+    .info{margin-top:14px;color:#b3faff;font-weight:600;text-shadow:0 0 8px rgba(0,255,255,0.15)}
+
+    .actions{display:flex;gap:12px;justify-content:center;margin-top:20px}
+    .join-btn{
+      background:linear-gradient(180deg,#00d4ff,#00a3cc);
+      color:#002200;padding:10px 18px;border-radius:12px;border:none;font-weight:800;
+      cursor:pointer;box-shadow:0 10px 30px rgba(0,220,255,0.18)
+    }
+
+    .ghost-btn{
+      background:transparent;border:1px solid rgba(255,255,255,0.1);
+      padding:10px 12px;border-radius:10px;color:#b7f8ff;cursor:pointer
+    }
+
+    .box.hide{transform:translateY(120px) scale(.95);opacity:0}
+
+    @media (max-width:420px){
+      .avatar{width:96px;height:96px;top:-48px}
+      .box{padding-top:78px}
+    }
+  </style>
+</head>
+<body>
+  <div class="neon-bubbles" id="neon-bubbles"></div>
+
+  <div class="wrap">
+    <div class="box" id="mainBox">
+      <div class="avatar">
+        <img src="https://files.catbox.moe/eg2tnq.jpg" alt="Avatar">
+      </div>
+
+      <h3>DINU X LITE</h3>
+      <h6>MODE BY CRYZZ</h6>
+      <h6>ᴇɴᴛᴇʀ ʏᴏᴜʀ ɴᴜᴍʙᴇʀ ᴡɪᴛʜ ᴄᴏᴜɴᴛʀʏ ᴄᴏᴅᴇ</h6>
+
+      <div class="input-container">
+        <input id="number" type="tel" placeholder="9423490xxxx" inputmode="numeric" pattern="[0-9]*" />
+      </div>
+      <button id="submit" class="submit-btn">ꜱᴜʙᴍɪᴛ</button>
+
+      <div class="info" id="pair" style="min-height:28px"></div>
+
+      <div class="actions">
+        <button class="join-btn" id="joinBtn">ᴊᴏɪɴ ᴄʜᴀɴɴᴇʟ</button>
+        <button class="ghost-btn" id="clearBtn" title="Clear">ᴄʟᴇᴀʀ</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('neon-bubbles');
+    for (let i=0;i<36;i++){
+      const s=document.createElement('span');
+      s.style.left = Math.random()*100 + 'vw';
+      s.style.bottom = Math.random()*20 - 10 + 'vh';
+      s.style.width = (10 + Math.random()*18) + 'px';
+      s.style.height = s.style.width;
+      s.style.animationDuration = (6 + Math.random()*6) + 's';
+      s.style.animationDelay = (Math.random()*6) + 's';
+      container.appendChild(s);
+    }
+
+    const pair = document.getElementById('pair');
+    const submit = document.getElementById('submit');
+    const num = document.getElementById('number');
+
+    submit.addEventListener('click', async (e) => {
+      e.preventDefault();
+      if (!num.value || num.value.replace(/[^0-9]/g,'').length < 11) {
+        pair.innerHTML = '<span style="color:#7df2ff;font-weight:700">Invalid or missing number</span>';
+        return;
+      }
+      const number = num.value.replace(/[^0-9]/g,'');
+      num.value = '+' + number;
+      num.style.background = '#02111b';
+      pair.innerHTML = '<span style="color:#b8faff;font-weight:700">Please wait...</span>';
+      try {
+        let res = await fetch(`/code?number=${number}`);
+        let data = await res.json();
+        let code = data.code || 'Service Unavailable';
+        pair.innerHTML = `<div id="copy" style="color:#80faff;font-weight:700;cursor:pointer" onclick="copyCode()"><strong>CODE:</strong> <span style="color:#fff">${code}</span></div>`;
+      } catch (err) {
+        pair.innerHTML = '<span style="color:#00bfff;font-weight:700">Error fetching code</span>';
+      }
+    });
+
+    function copyCode(){
+      const el = document.getElementById('copy');
+      if (!el) return;
+      const txt = el.innerText.replace('CODE:','').trim();
+      navigator.clipboard?.writeText(txt).then(()=>{
+        const old = el.innerHTML;
+        el.innerHTML = '<strong style="color:#00f0ff">COPIED</strong>';
+        setTimeout(()=> el.innerHTML = old,700);
+      }).catch(()=>{});
+    }
+
+    document.getElementById('clearBtn').addEventListener('click', ()=> {
+      num.value=''; pair.innerHTML=''; num.type='tel'; num.style.background='';
+    });
+
+    const joinBtn = document.getElementById('joinBtn');
+    const mainBox = document.getElementById('mainBox');
+    const channelURL = "https://whatsapp.com/channel/0029VbC4HpZ72WU5MPmV9C45";
+
+    joinBtn.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      mainBox.classList.add('hide');
+      setTimeout(()=> {
+        const opened = window.open(channelURL, '_blank', 'noopener,noreferrer');
+        if (!opened) window.location.href = channelURL;
+      }, 450);
+    });
+
+    num.addEventListener('keydown', (e)=> {
+      if (e.key === 'Enter') submit.click();
+    });
+  </script>
+</body>
+</html>
